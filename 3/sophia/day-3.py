@@ -1,19 +1,11 @@
+from string import ascii_lowercase, ascii_uppercase
+
+
 def generate_mapping():
-    mapping = {}
-    value = 1
-    current = 'a'
-    last = 'z'
-    while current <= last:
-        mapping[current] = value
-        value += 1
-        current = chr(ord(current) + 1)
-        if current == 'Z':
-            mapping[current] = value
-            break
-        if current > last:
-            current = 'A'
-            last = 'Z'
-    return mapping
+    lower = {x: ord(x) - 96 for x in ascii_lowercase}
+    upper = {x: ord(x) - (64 - 26) for x in ascii_uppercase}
+    lower.update(upper)
+    return lower
 
 
 def find_collisions(sack):
@@ -37,7 +29,7 @@ def determine_total(collisions, mapping):
 def main():
     sum_of_priorities = 0
     mapping = generate_mapping()
-    with open("input.txt","r") as i:
+    with open("input.txt", "r") as i:
         sacks = i.readlines()
         for sack in sacks:
             sum_of_priorities += determine_total(find_collisions(sack), mapping)
