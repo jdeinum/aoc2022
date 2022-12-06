@@ -1,9 +1,6 @@
-import numpy as np
-
-
 def moving_window(s_input: str):
     for i in range(0, len(s_input), 1):
-        if len(np.unique(list(s_input[i : i + 4]))) == 4:
+        if len(set(list(s_input[i : i + 4]))) == 4:
             return i + 4
 
 
