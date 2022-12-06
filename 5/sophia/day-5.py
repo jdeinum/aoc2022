@@ -8,13 +8,6 @@ def main():
         print_tops()
 
 
-def get_box_present(boxes):
-    for box in boxes:
-        if box[0] == "[" and box[2] == "]":
-            return True
-    return False
-
-
 def generate_stacks(input_file):
     line = input_file.readline()
     while 1:
