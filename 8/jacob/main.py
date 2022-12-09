@@ -15,8 +15,7 @@ def parse_input():
 
 
 def count_outer(trees: NDArray):
-    return functools.reduce(lambda a,b: 2*a + 2*b - 4, trees.shape)
-
+    return functools.reduce(lambda a, b: 2 * a + 2 * b - 4, trees.shape)
 
 
 # a tree is visible if it can see outside of the square
@@ -27,27 +26,18 @@ def isVisible(trees: NDArray, tree: tuple[int, int]):
     row, column = tree
     val = trees[row, column]
 
-    return np.any([
-    
-        # same row to the left
-        allSmaller(trees[row, 0:column], val),
-
-
-
-        # same row to the right
-        allSmaller(trees[row, column + 1:], val),
-
-        
-
-
-        # same column going up
-        allSmaller(trees[0:row, column], val),
-
-        
-
-        # same column going down
-        allSmaller(trees[row + 1:, column], val)
-        ])
+    return np.any(
+        [
+            # same row to the left
+            allSmaller(trees[row, 0:column], val),
+            # same row to the right
+            allSmaller(trees[row, column + 1 :], val),
+            # same column going up
+            allSmaller(trees[0:row, column], val),
+            # same column going down
+            allSmaller(trees[row + 1 :, column], val),
+        ]
+    )
 
 
 def allSmaller(line: NDArray, val: int) -> bool:
@@ -57,14 +47,10 @@ def allSmaller(line: NDArray, val: int) -> bool:
 def count_inner(trees: NDArray) -> int:
     nrows = trees.shape[0]
     ncols = trees.shape[1]
-    total = 0
-    for i in range(1, nrows - 1):
-        for j in range(1, ncols - 1):
-            if isVisible(trees, (i, j)):
-                total += 1
-
-    return total
-
+    tuples = [(x, y) for x in range(1, nrows - 1) for y in range(1, ncols - 1)]
+    a = functools.partial(isVisible, trees)
+    res = list(map(a, tuples))
+    return np.count_nonzero(res)
 
 
 def main():
@@ -78,7 +64,6 @@ def main():
     print(f"inner: {inner}")
 
     print(f"total: {outer + inner}")
-
 
 
 if __name__ == "__main__":
