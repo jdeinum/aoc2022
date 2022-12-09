@@ -58,10 +58,8 @@ def main():
     trees = parse_input()
 
     outer = count_outer(trees)
-    print(f"outer: {outer}")
 
     inner = count_inner(trees)
-    print(f"inner: {inner}")
 
     print(f"total: {outer + inner}")
 
