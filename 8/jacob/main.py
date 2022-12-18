@@ -18,6 +18,8 @@ def count_outer(trees: NDArray):
     return functools.reduce(lambda a, b: 2 * a + 2 * b - 4, trees.shape)
 
 
+
+
 # a tree is visible if it can see outside of the square
 # so we need to check if there is a line where each element is smaller than
 # the target tree that reaches the outside
